@@ -1,0 +1,41 @@
+.demoPanel {
+  position: fixed;
+  bottom: 5rem;
+  right: 1.5rem;
+  z-index: 5000;
+  background: #141414;
+  border: 1px solid var(--gold);
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 260px;
+}
+
+.demoTitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--gold-light);
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.35rem;
+}
+
+.demoBtn {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  padding: 0.35rem 0.5rem;
+  color: var(--text);
+  font-size: 0.75rem;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.demoBtn:hover {
+  background: var(--surface-3);
+  color: var(--gold);
+}

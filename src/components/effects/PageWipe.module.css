@@ -1,0 +1,19 @@
+.wipePanel {
+  position: fixed;
+  inset: 0;
+  background: var(--gold-gradient);
+  z-index: 9000;
+  pointer-events: none;
+  transform-origin: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wipeText {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: #0A0A0A;
+}

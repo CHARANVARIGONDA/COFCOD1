@@ -1,0 +1,196 @@
+.compareSection {
+  padding: var(--section-spacing) 0;
+}
+
+.header {
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.matrixGrid {
+  display: grid;
+  grid-template-columns: 220px 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 840px) {
+  .matrixGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .labelsCol {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .matrixGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Labels Column */
+.labelsCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: clamp(200px, 30vw, 340px);
+}
+
+.labelItem {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--surface-2);
+}
+
+/* Kit Column */
+.kitCol {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.kitImageFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: var(--surface-2);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.kitImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.removeCompareBtn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: rgba(14, 14, 14, 0.85);
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.removeCompareBtn:hover {
+  color: #DE778C;
+}
+
+.kitName {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0.5rem 0 0.25rem 0;
+  line-height: 1.1;
+}
+
+.specRow {
+  display: flex;
+  flex-direction: column;
+  min-height: 48px;
+  justify-content: center;
+  border-bottom: 1px solid var(--surface-2);
+  padding: 0.5rem 0;
+}
+
+.specMobileLabel {
+  display: none;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+@media (max-width: 840px) {
+  .specMobileLabel {
+    display: block;
+  }
+}
+
+.specVal {
+  font-size: 0.875rem;
+  color: var(--text-dim);
+}
+
+/* Empty Slot */
+.emptySlot {
+  background: var(--surface);
+  border: 2px dashed var(--line);
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.emptySlotTitle {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.emptySlotDesc {
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+  max-width: 240px;
+}
+
+.selectorSelect {
+  background: var(--surface-2);
+  border: 1px solid var(--line-gold);
+  color: var(--text);
+  padding: 0.625rem;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  width: 100%;
+  cursor: pointer;
+}

@@ -1,0 +1,301 @@
+.pdpContainer {
+  padding-top: clamp(140px, 16vw, 180px);
+  padding-bottom: var(--section-spacing);
+  position: relative;
+}
+
+/* Background Banner with Character Subtle Blur */
+.bannerBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 550px;
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0.18;
+}
+
+.bannerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(40px);
+  transform: scale(1.1);
+}
+
+.bannerOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, var(--bg) 100%);
+}
+
+/* Main 2-Column Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Gallery Column (Sticky on Desktop) */
+.galleryCol {
+  position: sticky;
+  top: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (max-width: 960px) {
+  .galleryCol {
+    position: static;
+  }
+}
+
+.mainImageFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnailsRow {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.thumbnailBtn {
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.thumbnailBtn:hover,
+.thumbnailActive {
+  opacity: 1;
+  border-color: var(--gold);
+}
+
+.thumbnailImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Info Column */
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--char-text-accent, var(--gold));
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--gold-light);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.description {
+  font-size: 0.9375rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Variant Selector */
+.variantSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.variantLabel {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  text-transform: uppercase;
+}
+
+.variantPills {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.variantPill {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.625rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.variantPill:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.variantPill.variantActive {
+  border-color: var(--gold);
+  color: #FFFFFF;
+  background: var(--surface-3);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+}
+
+.colorSwatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Purchase Actions */
+.purchaseActions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* PIN Code Checker */
+.pinCheckerContainer {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pinCheckerTitle {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.pinInputRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pinInput {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  padding: 0 0.875rem;
+  height: 44px;
+  flex: 1;
+  letter-spacing: 0.05em;
+}
+
+.pinInput:focus {
+  border-color: var(--gold);
+  outline: none;
+}
+
+.pinResult {
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}
+
+.pinSuccess {
+  color: var(--gold-light);
+}
+
+.pinError {
+  color: #DE778C;
+}
+
+/* Routines Protocol Card */
+.routinesCard {
+  background: var(--surface);
+  border-left: 3px solid var(--gold);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.routinesTitle {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.routineList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.routineItem {
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}

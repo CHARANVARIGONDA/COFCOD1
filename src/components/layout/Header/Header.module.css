@@ -1,0 +1,184 @@
+.headerWrapper {
+  position: fixed;
+  top: 1.25rem;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem;
+  pointer-events: none;
+}
+
+.pillNav {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 1060px;
+  height: 64px;
+  background: rgba(14, 14, 14, 0.92);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem 0 1.5rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 24px rgba(212, 175, 55, 0.18);
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.brandGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #FFFFFF;
+}
+
+.brandSub {
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  position: relative;
+}
+
+@media (max-width: 880px) {
+  .navLinks {
+    display: none;
+  }
+}
+
+.navLink {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #C0C0C0;
+  padding: 0.55rem 0.95rem;
+  transition: color 0.2s ease;
+  z-index: 1;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: #FFFFFF;
+}
+
+.activeLink {
+  color: var(--gold-bright);
+}
+
+.activeIndicator {
+  position: absolute;
+  inset: 0;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: var(--radius-pill);
+  z-index: -1;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+}
+
+/* Bag Button - Styled exactly like the golden pill in the screenshot */
+.bagButton {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  height: 44px;
+  padding: 0 1.25rem;
+  background: var(--gold);
+  border: none;
+  border-radius: var(--radius-pill);
+  color: #0A0A0A;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(212, 175, 55, 0.45);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bagButton:hover {
+  background: var(--gold-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(212, 175, 55, 0.65);
+}
+
+.bagCountPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #0A0A0A;
+  color: var(--gold-light);
+  border-radius: 50%;
+  font-size: 0.8125rem;
+  font-weight: 900;
+}
+
+/* Mobile Bottom Tab Bar */
+.mobileBar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: rgba(14, 14, 14, 0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--line);
+  z-index: 1000;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (max-width: 768px) {
+  .mobileBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
+
+.mobileTab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  gap: 0.2rem;
+  padding: 0.35rem 0.75rem;
+}
+
+.mobileTab.activeTab {
+  color: var(--gold-light);
+}

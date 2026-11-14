@@ -1,0 +1,91 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.9375rem;
+  line-height: 1;
+  padding: 0 1.5rem;
+  min-height: 48px;
+  border-radius: var(--radius-sharp);
+  transition: all 0.2s var(--ease-sharp);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Primary Gold */
+.primary {
+  background: var(--gold-gradient);
+  color: #0A0A0A;
+  font-weight: 800;
+  border: 1px solid var(--gold-light);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15);
+}
+
+.primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+  filter: brightness(1.08);
+}
+
+.primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Outline / Machined Edge */
+.outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+}
+
+.outline:hover:not(:disabled) {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.04);
+}
+
+/* Dark Surface */
+.surface {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+
+.surface:hover:not(:disabled) {
+  background: var(--surface-3);
+  border-color: var(--text-dim);
+}
+
+/* Character Themed Button */
+.character {
+  background: transparent;
+  color: var(--char-accent-color, var(--text));
+  border: 1px solid var(--char-accent-color, var(--line));
+}
+
+.character:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Small Variant */
+.small {
+  min-height: 38px;
+  padding: 0 1rem;
+  font-size: 0.8125rem;
+}
+
+/* Full Width */
+.fullWidth {
+  width: 100%;
+}

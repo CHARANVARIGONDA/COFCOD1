@@ -1,0 +1,57 @@
+:root {
+  /* Surfaces & Backgrounds */
+  --bg: #0A0A0A;
+  --bg-deep: #070707;
+  --bg-alt: #101010;
+  --surface: #141414;
+  --surface-2: #1B1B1B;
+  --surface-3: #222222;
+
+  /* Architectural Lines */
+  --line: #262626;
+  --line-strong: #383838;
+  --line-gold: rgba(212, 175, 55, 0.35);
+
+  /* Typography Colors */
+  --text: #F5F5F5;
+  --text-dim: #999999;
+  --text-muted: #666666;
+
+  /* Metallic Gold System */
+  --gold: #D4AF37;
+  --gold-light: #F2D675;
+  --gold-dark: #B8962E;
+  --gold-gradient: linear-gradient(110deg, #B8962E 0%, #F2D675 40%, #D4AF37 60%, #8F7424 100%);
+  --gold-glow: rgba(212, 175, 55, 0.25);
+
+  /* Character Accents & WCAG 2.1 Compliant Text Tokens */
+  --char-arjun: #5B8DB8;
+  --char-arjun-text: #7CAADA;
+  --char-bheema: #A0704A;
+  --char-bheema-text: #C58F63;
+  --char-karna: #D98324;
+  --char-karna-text: #D98324;
+  --char-sita: #EFE6D2;
+  --char-sita-text: #EFE6D2;
+  --char-draupadi: #C25A6E;
+  --char-draupadi-text: #DE778C;
+  --char-savitri: #8A8F3C;
+  --char-savitri-text: #A8AD4B;
+
+  /* Typography */
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Layout Spacing & Geometry */
+  --container-max: 1360px;
+  --container-padding: clamp(20px, 4vw, 64px);
+  --section-spacing: clamp(96px, 14vw, 200px);
+  --nav-height: 56px;
+  --radius-pill: 9999px;
+  --radius-sharp: 0px;
+
+  /* Easing */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-sharp: cubic-bezier(0.25, 1, 0.5, 1);
+}
