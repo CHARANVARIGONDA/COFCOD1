@@ -11,8 +11,6 @@ export const OrderConfirmationPage: React.FC = () => {
   const [typedId, setTypedId] = useState<string>('');
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
     let retrieved: OrderSnapshot | null = null;
     if (id) {
       const stored = sessionStorage.getItem(`cofoco_order_${id}`);

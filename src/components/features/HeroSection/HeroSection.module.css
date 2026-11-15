@@ -23,7 +23,6 @@
   object-fit: cover;
   object-position: center 30%;
   filter: brightness(0.65) contrast(1.1);
-  transform: scale(1.05);
   transition: opacity 0.6s var(--ease-expo), transform 0.6s var(--ease-expo);
 }
 
@@ -80,10 +79,12 @@
 .headline {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(2.4rem, 8.5vw, 9.5rem);
+  font-size: clamp(40px, 12.5vw, 180px);
   line-height: 0.9;
   letter-spacing: -0.02em;
   text-transform: uppercase;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
   color: #FFFFFF;
   margin: 0;
   max-width: 1100px;

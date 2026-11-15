@@ -28,7 +28,6 @@ export const KitDetailPage: React.FC = () => {
   const [pinResult, setPinResult] = useState<{ isValid?: boolean; message?: string } | null>(null);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     if (kit) {
       setSelectedImage(kit.primaryImage);
       setSelectedVariantIndex(0);

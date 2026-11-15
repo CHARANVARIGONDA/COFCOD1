@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CHARACTERS, BRAND_IMAGES, CharacterEmblem } from '@cofoco/shared';
 import { Button } from '../../ui/Button/Button';
 import styles from './HeroSection.module.css';
 
 export const HeroSection: React.FC = () => {
-  const navigate = useNavigate();
   const [activeBackdrop, setActiveBackdrop] = useState<string>(BRAND_IMAGES.homeHero);
   const [activeCharSlug, setActiveCharSlug] = useState<string | null>(null);
 
@@ -35,6 +34,14 @@ export const HeroSection: React.FC = () => {
 
   const activeChar = CHARACTERS.find((c) => c.slug === activeCharSlug);
 
+  const handleScrollTo = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className={styles.heroContainer} aria-label="Hero Overview">
       {/* Background with optimized smooth transitions (no blocking mode='wait') */}
@@ -55,7 +62,7 @@ export const HeroSection: React.FC = () => {
         <div className={styles.heroContent}>
           <div className={styles.eyebrow}>
             <span className={styles.eyebrowLine} />
-            <span>CONSCIOUS FORM COMPANY // KINETIC LUXE</span>
+            <span>CONSCIOUS FORM COMPANY</span>
           </div>
 
           <h1 className={styles.headline}>
@@ -69,12 +76,12 @@ export const HeroSection: React.FC = () => {
           </p>
 
           <div className={styles.ctaRow}>
-            <a href="#kits">
+            <a href="#kits" onClick={(e) => handleScrollTo(e, 'kits')}>
               <Button variant="primary">
                 EXPLORE EQUIPMENT KITS ↓
               </Button>
             </a>
-            <a href="#roster">
+            <a href="#roster" onClick={(e) => handleScrollTo(e, 'roster')}>
               <Button variant="outline">
                 ROSTER DISCIPLINES →
               </Button>
@@ -100,9 +107,6 @@ export const HeroSection: React.FC = () => {
                   key={char.slug}
                   to={`/characters/${char.slug}`}
                   className={`${styles.disciplineBadge} ${activeCharSlug === char.slug ? styles.activeDiscipline : ''}`}
-                  onClick={() => {
-                    navigate(`/characters/${char.slug}`);
-                  }}
                   onPointerEnter={(e) => {
                     if (e.pointerType === 'mouse') {
                       handleCharHover(char.slug, char.heroImage);

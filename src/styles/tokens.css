@@ -46,7 +46,7 @@
 
   /* Layout Spacing & Geometry */
   --container-max: 1360px;
-  --container-padding: clamp(20px, 4vw, 64px);
+  --container-padding: clamp(16px, 4vw, 64px);
   --section-spacing: clamp(96px, 14vw, 200px);
   --nav-height: 56px;
   --radius-pill: 9999px;

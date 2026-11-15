@@ -96,6 +96,29 @@
   justify-content: space-between;
   align-items: center;
   gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .authCard {
+    padding: 1rem 0.75rem;
+    max-width: 100%;
+  }
+  .authRow,
+  .mfaRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .roleSelect {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .mfaBtn {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
 }
 
 .authLabel {
@@ -163,8 +186,25 @@
   gap: 0.65rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   margin-bottom: 2rem;
-  overflow-x: auto;
   padding-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 680px) {
+  .navTabs {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .tabBtn {
+    width: 100%;
+    justify-content: flex-start;
+    white-space: normal !important;
+    word-break: break-word;
+    font-size: 0.8125rem !important;
+    padding: 0.65rem 0.85rem !important;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
 }
 
 .tabBtn {
@@ -383,6 +423,25 @@
   flex-direction: column;
   gap: 1.75rem;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .orderDetailCol {
+    padding: 1rem 0.75rem;
+    gap: 1.25rem;
+  }
+  .inventorySection,
+  .exceptionsSection,
+  .catalogSection {
+    padding: 1rem 0.75rem;
+  }
+  .dispatchRow {
+    flex-direction: column;
+  }
+  .trackingInput {
+    max-width: 100%;
+  }
 }
 
 /* 4-Step Glowing Stepper */
@@ -398,6 +457,30 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+}
+
+@media (max-width: 560px) {
+  .stepperContainer {
+    padding: 0.85rem;
+  }
+  .stepperTrack {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.35rem;
+  }
+  .stepLine {
+    display: none !important;
+  }
+  .stepCircle {
+    width: 26px;
+    height: 26px;
+    font-size: 0.75rem;
+  }
+  .stepTitle {
+    font-size: 0.55rem;
+    text-align: center;
+    line-height: 1.1;
+  }
 }
 
 .stepNode {
@@ -515,6 +598,14 @@
   }
 }
 
+@media (max-width: 520px) {
+  .metaGrid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+    gap: 0.85rem;
+  }
+}
+
 .metaItem {
   display: flex;
   flex-direction: column;
@@ -593,6 +684,24 @@
   padding: 1rem 1.25rem;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+@media (max-width: 640px) {
+  .pickRow {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.85rem;
+  }
+  .pickDetails {
+    min-width: 0;
+    flex: 1 1 50%;
+  }
+  .btnVerify,
+  .btnVerified {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.25rem;
+  }
 }
 
 .pickRow:hover {

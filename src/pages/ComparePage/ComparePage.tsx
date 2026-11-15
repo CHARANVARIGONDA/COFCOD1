@@ -1,17 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { CompareMatrix } from '../../components/features/CompareMatrix/CompareMatrix';
 
 export const ComparePage: React.FC = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <div style={{ paddingTop: 'clamp(100px, 12vw, 140px)', minHeight: '85vh' }}>
       <div className="container" style={{ marginBottom: '1.5rem' }}>
         <Link
-          to="/#kits"
+          to="/"
           style={{
             fontFamily: 'var(--font-display)',
             fontSize: '0.8125rem',

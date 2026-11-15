@@ -520,9 +520,9 @@ export const AnalyticsPage: React.FC = () => {
                 aria-label="Target Conversion Rate Slider"
               />
               <div className={styles.sliderTicks}>
-                <span>2.0% (Conservative)</span>
-                <span>3.42% (Current Baseline)</span>
-                <span>6.0% (Aggressive Target)</span>
+                <span>2.0%<span className={styles.tickSub}> (Conservative)</span></span>
+                <span>3.42%<span className={styles.tickSub}> (Baseline)</span></span>
+                <span>6.0%<span className={styles.tickSub}> (Aggressive)</span></span>
               </div>
             </div>
 

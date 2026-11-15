@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { CartProvider, CompareProvider, getCharacterBySlug } from '@cofoco/shared';
 import { Layout } from './components/layout/Layout/Layout';
 import { SmoothScrollProvider } from './components/effects/SmoothScrollProvider';
+import { ScrollRestorationManager } from './components/effects/ScrollRestorationManager';
 
 // Pages
 import { HomePage } from './pages/HomePage/HomePage';
@@ -30,6 +31,7 @@ export const App: React.FC = () => {
     <CartProvider>
       <CompareProvider>
         <SmoothScrollProvider>
+          <ScrollRestorationManager />
           <Layout characterTint={charTint}>
             <Routes>
               <Route path="/" element={<HomePage />} />

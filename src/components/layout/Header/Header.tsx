@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@cofoco/shared';
 import styles from './Header.module.css';
@@ -7,12 +7,13 @@ import styles from './Header.module.css';
 export const Header: React.FC = () => {
   const { itemCount, toggleDrawer } = useCart();
   const location = useLocation();
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Close mobile drawer on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
-  }, [location.pathname, location.hash]);
+  }, [location.pathname]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -26,9 +27,30 @@ export const Header: React.FC = () => {
     };
   }, [isMobileMenuOpen]);
 
+  // In-page smooth scroll without pushing history entries
+  const handleInPageScroll = (id: string, e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    setIsMobileMenuOpen(false);
+
+    if (location.pathname === '/') {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  };
+
   const navItems = [
-    { label: 'CHARACTERS', path: '/#roster', tag: '06 ROSTER' },
-    { label: 'KITS', path: '/#kits', tag: 'EQUIPMENT' },
+    { label: 'CHARACTERS', action: (e: React.MouseEvent) => handleInPageScroll('roster', e), tag: '06 ROSTER' },
+    { label: 'KITS', action: (e: React.MouseEvent) => handleInPageScroll('kits', e), tag: 'EQUIPMENT' },
     { label: 'COMPARE', path: '/compare', tag: 'MATRIX' },
     { label: 'OPERATIONS', path: '/admin', tag: 'PORTAL' },
     { label: 'ANALYTICS', path: '/analytics', tag: 'LIVE BI' },
@@ -38,24 +60,33 @@ export const Header: React.FC = () => {
     <>
       <header className={styles.headerWrapper} role="banner">
         <nav className={styles.pillNav} aria-label="Main Navigation">
-          {/* Brand Logo & Pill Indicator */}
+          {/* Brand Logo - COFOCO only, NO 'KINETIC LUXE' */}
           <Link to="/" className={styles.brandGroup} aria-label="COFOCO Home">
             <span className={styles.brandName}>COFOCO</span>
-            <span className={styles.brandSub}>KINETIC LUXE</span>
           </Link>
 
-          {/* Desktop Navigation Links with sliding gold indicator */}
+          {/* Desktop Navigation Links */}
           <div className={styles.navLinks}>
             {navItems.map((item) => {
-              const isActive =
-                item.path.startsWith('/#')
-                  ? location.pathname === '/' && location.hash === item.path.replace('/', '')
-                  : location.pathname === item.path;
+              if (item.action) {
+                return (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={item.action}
+                    className={styles.navLink}
+                  >
+                    {item.label}
+                  </button>
+                );
+              }
+
+              const isActive = location.pathname === item.path;
 
               return (
                 <Link
                   key={item.label}
-                  to={item.path}
+                  to={item.path!}
                   className={`${styles.navLink} ${isActive ? styles.activeLink : ''}`}
                 >
                   {isActive && (
@@ -71,7 +102,7 @@ export const Header: React.FC = () => {
             })}
           </div>
 
-          {/* Action Group: Golden Bag Button + 3-Bar Hamburger on Mobile */}
+          {/* Action Group: Cart Button + 3-Bar Hamburger */}
           <div className={styles.actionGroup}>
             <button
               type="button"
@@ -79,7 +110,7 @@ export const Header: React.FC = () => {
               onClick={toggleDrawer}
               aria-label={`Open shopping bag, ${itemCount} items`}
             >
-              <span>BAG</span>
+              <span className={styles.bagLabel}>BAG</span>
               <span className={`${styles.bagCountPill} tabular`}>{itemCount}</span>
             </button>
 
@@ -112,7 +143,6 @@ export const Header: React.FC = () => {
             <div className={styles.mobileOverlayHeader}>
               <div className={styles.brandGroup}>
                 <span className={styles.brandName}>COFOCO</span>
-                <span className={styles.brandSub}>KINETIC LUXE</span>
               </div>
               <button
                 type="button"
@@ -127,7 +157,7 @@ export const Header: React.FC = () => {
             <div className={styles.mobileMenuList}>
               <Link
                 to="/"
-                className={`${styles.mobileMenuItem} ${location.pathname === '/' && !location.hash ? styles.mobileMenuActive : ''}`}
+                className={`${styles.mobileMenuItem} ${location.pathname === '/' ? styles.mobileMenuActive : ''}`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <div className={styles.mobileMenuLeft}>
@@ -138,15 +168,29 @@ export const Header: React.FC = () => {
               </Link>
 
               {navItems.map((item, idx) => {
-                const isActive =
-                  item.path.startsWith('/#')
-                    ? location.pathname === '/' && location.hash === item.path.replace('/', '')
-                    : location.pathname === item.path;
+                if (item.action) {
+                  return (
+                    <button
+                      key={item.label}
+                      type="button"
+                      className={styles.mobileMenuItem}
+                      onClick={item.action}
+                    >
+                      <div className={styles.mobileMenuLeft}>
+                        <span className={styles.mobileMenuIndex}>0{idx + 2}</span>
+                        <span className={styles.mobileMenuLabel}>{item.label}</span>
+                      </div>
+                      <span className={styles.mobileMenuTag}>{item.tag}</span>
+                    </button>
+                  );
+                }
+
+                const isActive = location.pathname === item.path;
 
                 return (
                   <Link
                     key={item.label}
-                    to={item.path}
+                    to={item.path!}
                     className={`${styles.mobileMenuItem} ${isActive ? styles.mobileMenuActive : ''}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >

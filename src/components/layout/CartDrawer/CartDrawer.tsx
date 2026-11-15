@@ -22,7 +22,16 @@ export const CartDrawer: React.FC = () => {
 
   const handleExploreClick = () => {
     setDrawer(false);
-    navigate('/#kits');
+    if (window.location.pathname === '/') {
+      const el = document.getElementById('kits');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById('kits');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
   };
 
   const shippingPercent = Math.min(
