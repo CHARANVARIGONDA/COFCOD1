@@ -20,6 +20,7 @@
   /* Metallic Gold System */
   --gold: #D4AF37;
   --gold-light: #F2D675;
+  --gold-bright: #F5DC7A;
   --gold-dark: #B8962E;
   --gold-gradient: linear-gradient(110deg, #B8962E 0%, #F2D675 40%, #D4AF37 60%, #8F7424 100%);
   --gold-glow: rgba(212, 175, 55, 0.25);

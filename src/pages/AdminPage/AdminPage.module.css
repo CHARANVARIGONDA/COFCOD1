@@ -84,7 +84,10 @@
   flex-direction: column;
   gap: 0.85rem;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-  min-width: 320px;
+  width: 100%;
+  max-width: 380px;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .authRow,
@@ -718,7 +721,10 @@
   border-radius: 6px;
   font-family: var(--font-body);
   font-size: 0.9375rem;
-  min-width: 320px;
+  width: 100%;
+  max-width: 320px;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .deliveredCompleteText {
