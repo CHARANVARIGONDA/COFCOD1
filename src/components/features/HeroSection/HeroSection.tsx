@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { CHARACTERS, BRAND_IMAGES, CharacterEmblem } from '@cofoco/shared';
 import { Button } from '../../ui/Button/Button';
 import styles from './HeroSection.module.css';
 
 export const HeroSection: React.FC = () => {
+  const navigate = useNavigate();
   const [activeBackdrop, setActiveBackdrop] = useState<string>(BRAND_IMAGES.homeHero);
   const [activeCharSlug, setActiveCharSlug] = useState<string | null>(null);
+
+  // Preload all character hero images on mount so transitions are instantaneous
+  useEffect(() => {
+    const defaultImg = new Image();
+    defaultImg.src = BRAND_IMAGES.homeHero;
+
+    CHARACTERS.forEach((char) => {
+      if (char.heroImage) {
+        const img = new Image();
+        img.src = char.heroImage;
+      }
+    });
+  }, []);
 
   const handleCharHover = (charSlug: string, heroImage: string) => {
     setActiveBackdrop(heroImage);
@@ -23,20 +37,17 @@ export const HeroSection: React.FC = () => {
 
   return (
     <section className={styles.heroContainer} aria-label="Hero Overview">
-      {/* Background with crossfade transitions */}
+      {/* Background with optimized smooth transitions (no blocking mode='wait') */}
       <div className={styles.heroBackdrop}>
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={activeBackdrop}
-            src={activeBackdrop}
-            alt="COFOCO Kinetic Performance"
-            className={styles.heroImage}
-            initial={{ opacity: 0.7, scale: 1.08 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0.7 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-          />
-        </AnimatePresence>
+        <motion.img
+          key={activeBackdrop}
+          src={activeBackdrop}
+          alt="COFOCO Kinetic Performance"
+          className={styles.heroImage}
+          initial={{ opacity: 0.7 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
+        />
         <div className={styles.heroGradientOverlay} />
       </div>
 
@@ -89,10 +100,19 @@ export const HeroSection: React.FC = () => {
                   key={char.slug}
                   to={`/characters/${char.slug}`}
                   className={`${styles.disciplineBadge} ${activeCharSlug === char.slug ? styles.activeDiscipline : ''}`}
-                  onMouseEnter={() => handleCharHover(char.slug, char.heroImage)}
-                  onMouseLeave={handleCharLeave}
-                  onFocus={() => handleCharHover(char.slug, char.heroImage)}
-                  onBlur={handleCharLeave}
+                  onClick={() => {
+                    navigate(`/characters/${char.slug}`);
+                  }}
+                  onPointerEnter={(e) => {
+                    if (e.pointerType === 'mouse') {
+                      handleCharHover(char.slug, char.heroImage);
+                    }
+                  }}
+                  onPointerLeave={(e) => {
+                    if (e.pointerType === 'mouse') {
+                      handleCharLeave();
+                    }
+                  }}
                   style={
                     {
                       '--char-color': char.color,

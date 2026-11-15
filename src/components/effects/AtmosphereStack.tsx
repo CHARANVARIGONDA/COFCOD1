@@ -12,46 +12,66 @@ export const AtmosphereStack: React.FC<AtmosphereStackProps> = ({ tintColor = 'r
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const spotlightRef = useRef<HTMLDivElement | null>(null);
 
-  // Mouse position lerping for smooth spotlight
+  // Optimized smooth spotlight - only updates on actual mouse movement
   useEffect(() => {
     if (reducedMotion || !DEFAULT_EFFECTS_CONFIG.spotlight) return;
+
+    // Don't run cursor spotlight on touch devices to save 100% CPU/GPU
+    if (window.matchMedia('(hover: none)').matches) return;
 
     let targetX = -1000;
     let targetY = -1000;
     let currentX = -1000;
     let currentY = -1000;
-    let rafId: number;
+    let isMoving = false;
+    let stopTimeout: any;
 
     const handleMouseMove = (e: MouseEvent) => {
       targetX = e.clientX;
       targetY = e.clientY;
+      if (!isMoving) {
+        isMoving = true;
+        requestAnimationFrame(updateSpotlight);
+      }
+      clearTimeout(stopTimeout);
+      stopTimeout = setTimeout(() => {
+        isMoving = false;
+      }, 400);
     };
 
     const updateSpotlight = () => {
-      // Lerp smoothing factor
-      currentX += (targetX - currentX) * 0.12;
-      currentY += (targetY - currentY) * 0.12;
+      const dx = targetX - currentX;
+      const dy = targetY - currentY;
+      
+      currentX += dx * 0.18;
+      currentY += dy * 0.18;
 
       if (spotlightRef.current) {
-        spotlightRef.current.style.setProperty('--spot-x', `${currentX}px`);
-        spotlightRef.current.style.setProperty('--spot-y', `${currentY}px`);
+        spotlightRef.current.style.setProperty('--spot-x', `${Math.round(currentX)}px`);
+        spotlightRef.current.style.setProperty('--spot-y', `${Math.round(currentY)}px`);
       }
 
-      rafId = requestAnimationFrame(updateSpotlight);
+      // Keep running while moving or closing distance
+      if (isMoving || Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
+        requestAnimationFrame(updateSpotlight);
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    rafId = requestAnimationFrame(updateSpotlight);
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(rafId);
+      clearTimeout(stopTimeout);
     };
   }, [reducedMotion]);
 
-  // Chalk dust particle simulation on HTML5 Canvas
+  // Ultra-light Chalk dust particle simulation (paused on touch/mobile for pure 60fps)
   useEffect(() => {
     if (reducedMotion || !DEFAULT_EFFECTS_CONFIG.dust) return;
+
+    // Disable canvas loop on mobile/touch screens for silky 60-120fps performance
+    const isMobile = window.innerWidth < 768 || window.matchMedia('(hover: none)').matches;
+    if (isMobile) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -62,9 +82,7 @@ export const AtmosphereStack: React.FC<AtmosphereStackProps> = ({ tintColor = 'r
     let animationFrameId: number;
     let width = 0;
     let height = 0;
-
-    const isMobile = window.innerWidth < 768;
-    const particleCount = isMobile ? 28 : 85;
+    const particleCount = 24; // Streamlined particle count (down from 85)
 
     interface Particle {
       x: number;
@@ -80,28 +98,24 @@ export const AtmosphereStack: React.FC<AtmosphereStackProps> = ({ tintColor = 'r
     let particles: Particle[] = [];
 
     const resize = () => {
-      // Cap DPR to 1.5 to protect performance on high-DPI displays
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = window.innerWidth;
       height = window.innerHeight;
-
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.scale(dpr, dpr);
+      canvas.width = width;
+      canvas.height = height;
 
       particles = [];
       for (let i = 0; i < particleCount; i++) {
-        const radius = Math.random() * 1.8 + 0.6;
-        const baseAlpha = Math.random() * 0.35 + 0.1;
+        const radius = Math.random() * 1.5 + 0.6;
+        const baseAlpha = Math.random() * 0.25 + 0.08;
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
           radius,
-          vx: (Math.random() - 0.5) * 0.25,
-          vy: -(Math.random() * 0.35 + 0.1), // gentle upward drift like gym chalk
+          vx: (Math.random() - 0.5) * 0.2,
+          vy: -(Math.random() * 0.25 + 0.08),
           alpha: baseAlpha,
           baseAlpha,
-          tint: Math.random() > 0.6 ? tintColor : 'rgba(240, 240, 240, 0.4)',
+          tint: Math.random() > 0.6 ? tintColor : 'rgba(240, 240, 240, 0.3)',
         });
       }
     };
@@ -124,7 +138,6 @@ export const AtmosphereStack: React.FC<AtmosphereStackProps> = ({ tintColor = 'r
           p.x += p.vx;
           p.y += p.vy;
 
-          // Wrap boundaries
           if (p.y < -10) {
             p.y = height + 10;
             p.x = Math.random() * width;
@@ -154,26 +167,19 @@ export const AtmosphereStack: React.FC<AtmosphereStackProps> = ({ tintColor = 'r
 
   return (
     <div className={styles.stack} aria-hidden="true">
-      {/* L1 Knurl */}
+      {/* L1 Knurl Texture */}
       {DEFAULT_EFFECTS_CONFIG.knurl && <div className={styles.knurl} />}
 
-      {/* L2 SVG Turbulence Grain */}
-      {DEFAULT_EFFECTS_CONFIG.grain && (
-        <svg className={styles.grain} xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-          <filter id="c-noise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#c-noise)" />
-        </svg>
-      )}
+      {/* L2 High-Performance CSS Grain Overlay (0% CPU, No SVG feTurbulence lag) */}
+      {DEFAULT_EFFECTS_CONFIG.grain && <div className={styles.grain} />}
 
-      {/* L3 Chalk Dust Canvas */}
+      {/* L3 Chalk Dust Canvas (Desktop Only) */}
       {DEFAULT_EFFECTS_CONFIG.dust && !reducedMotion && <canvas ref={canvasRef} className={styles.canvas} />}
 
       {/* L4 Vignette */}
       <div className={styles.vignette} />
 
-      {/* L5 Gold Cursor Spotlight */}
+      {/* L5 Gold Cursor Spotlight (Desktop Only) */}
       {DEFAULT_EFFECTS_CONFIG.spotlight && !reducedMotion && <div ref={spotlightRef} className={styles.spotlight} />}
     </div>
   );
